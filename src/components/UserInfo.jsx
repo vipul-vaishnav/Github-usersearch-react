@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Error from './Error';
 import Location from '../images/icon-location.svg';
 import Twitter from '../images/icon-twitter.svg';
 import Website from '../images/icon-website.svg';
@@ -6,12 +7,35 @@ import Company from '../images/icon-company.svg';
 
 const UserInfo = ({ url }) => {
   const [user, setUser] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => setUser(data));
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+
+        if (response.status === 404) {
+          setError(true);
+          throw new Error(response.statusText);
+        }
+      })
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [url]);
+
+  if (error) {
+    return (
+      <section className="profile" role="contentinfo" style={{ textAlign: 'center' }}>
+        <Error />
+      </section>
+    );
+  }
 
   return (
     <section className="profile" role="contentinfo">

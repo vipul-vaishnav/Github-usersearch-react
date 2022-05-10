@@ -2,7 +2,7 @@ import React from 'react';
 import Search from '../images/icon-search.svg';
 
 const SearchBar = (props) => {
-  const { value, handleSubmit, handleChange } = props;
+  const { value, handleSubmit, handleChange, isDisabled } = props;
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
@@ -20,7 +20,7 @@ const SearchBar = (props) => {
           onChange={(e) => handleChange(e)}
         />
       </div>
-      <button type="submit" className="search-btn">
+      <button type="submit" className="search-btn" disabled={isDisabled}>
         Search
       </button>
     </form>
