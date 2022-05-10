@@ -5,13 +5,13 @@ import UserInfo from './UserInfo';
 
 const Box = ({ toggleTheme, theme }) => {
   const [value, setValue] = useState('');
-  const [user, setUser] = useState('bradtraversy');
+  const [user, setUser] = useState('vipul-vaishnav');
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleChange = (e) => {
-    if (value === '') {
+    if (e.target.value === '') {
       setIsDisabled(true);
-    } else if (value !== '' && value.trim().length !== 0) {
+    } else if (e.target.value !== '' && e.target.value.trim().length > 0) {
       setIsDisabled(false);
     }
     setValue(e.target.value);
